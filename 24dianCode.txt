@@ -1,0 +1,48 @@
+#include<stdio.h> 
+double fun(double a1,double a2,int b) 
+{switch(b) 
+{case 0:return (a1+a2); 
+case 1:return (a1-a2); 
+case 2:return (a1*a2); 
+case 3:return (a1/a2); 
+} 
+} 
+void main() 
+{int i,j,k,l,n,m,r,save[4],flg=1; 
+double num[4]={1,1,1,1},tem1,tem2,tem3,abc=1111; 
+char sign[5]="+-*/"; 
+printf("输入四个数:"); 
+for(i=0;i<4;i++) 
+{scanf("%lf",num+i); save[i]=num[i];if(save[i]>13)flg=0;}
+if(flg) {
+flg=0;
+for(i=0;i<4;i++) 
+for(j=0;j<4;j++) 
+if(j!=i) 
+{for(k=0;k<4;k++) 
+if(k!=i&&k!=j) 
+{for(l=0;l<4;l++) 
+if(l!=i&&l!=j&&l!=k) 
+{for(n=0;n<4;n++) 
+for(m=0;m<4;m++) 
+for(r=0;r<4;r++) 
+{tem1=fun(num[i],num[j],n); 
+tem2=fun(tem1,num[k],m); 
+tem3=fun(tem2,num[l],r); 
+if(tem3==24.0) {printf("{(%d%c%d)%c%d}%c%d=24\n",save[i],sign[n],save[j],sign[m],save[k],sign[r],save[l]);return;}
+else if(tem3==-24.0) {printf("{%d%c(%d%c%d)}%c%d=24\n",save[k],sign[m],save[i],sign[n],save[j],sign[r],save[l]);return;}
+else if(tem3==1.0/24.0) {printf("%d%c{(%d%c%d)%c%d}=24\n",save[l],sign[r],save[i],sign[n],save[j],sign[m],save[k]);return;}
+else if(tem3==-1.0/24.0) {printf("%d%c{%d%c(%d%c%d)}=24\n",save[l],sign[r],save[k],sign[n],save[i],sign[m],save[j]);return;}
+else 
+{tem1=fun(num[i],num[j],n); 
+tem2=fun(num[k],num[l],r); 
+tem3=fun(tem1,tem2,m); 
+if(tem3==24.0) {printf("(%d%c%d)%c(%d%c%d)=24\n",save[i],sign[n],save[j],sign[m],save[k],sign[r],save[l]);return;}
+} 
+} 
+} 
+} 
+}
+}
+if(!flg) printf("NO ANSWER\n"); 
+}
